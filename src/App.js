@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
+import HomeLayout from "./components/home/HomeLayout";
+import { useEffect } from "react";
+import { Container, CssBaseline } from "@mui/material";
+import ProductDetailLayout from "./components/product-detail/ProductDetailLayout";
+import { Box } from "@mui/system";
 
 function App() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+  }, [pathname]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '80vh',
+      }}
+    >
+      <CssBaseline />
+      <Container component="main" sx={{ mt: 1 }}>
+        <Header />
+        <Routes>
+          <Route path="*" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<HomeLayout />} />
+          <Route path="/login" element={<HomeLayout />} />
+          <Route path="/product-detail/:id" element={<ProductDetailLayout />} />
+          <Route path="/profile" element={<HomeLayout />} />
+          <Route path="/shopping-cart" element={<HomeLayout />} />
+          <Route path="/user-info" element={<HomeLayout />} />
+          <Route path="/payment" element={<HomeLayout />} />
+        </Routes>
+        <Footer />
+      </Container >
+    </Box>
   );
 }
 

@@ -1,0 +1,38 @@
+server address: http://45.138.24.15:9000
+
+دریافت تمام محصولات
+GET  /api/products
+
+دریافت اطلاعات یک محصول
+GET   /api/products/:id 
+
+ثبت سفارش
+POST  /api/orders  {{
+    "orderItems": [
+        {
+            "product": "61af0ae4c971af479002de92",
+            "name": "Cannon EOS 80D DSLR Camera",
+            "image": "/images/camera.jpg",
+            "price": 929.99,
+            "countInStock": 5,
+            "qty": 1
+        }
+    ],
+    "shippingAddress": {
+        "address": "",
+        "city": "",
+        "postalCode": "",
+        "phone": ""
+    },
+    "paymentMethod": "",
+    "itemsPrice": "929.99",
+    "shippingPrice": "0.00",
+    "totalPrice": "929.99"
+}
+  } (token)
+
+  دریافت سفارشات 
+  GET /api/orders/myorders  (token)
+
+  دریافت یک سفارش
+  GET  /api/or…

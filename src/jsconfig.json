@@ -1,0 +1,11 @@
+{
+  "FETCH_ALL_PRODUCTS": "/api/products",
+  "FETCH_PRODUCT": "/api/products/id",
+  "ٌREGISTER_ORDER": "/api/orders",
+  "FETCH_ALL_ORDERS": "/api/orders/myorders",
+  "FETCH_ORDER": "/api/orders/id",
+  "FETCH_USER_INFO": "api/users/profile",
+  "MODIFY_USER_INFO": "/api/users/profile",
+  "LOGIN": "/api/users/login",
+  "REGISTER": "api/users"
+}
