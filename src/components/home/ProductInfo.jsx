@@ -10,12 +10,16 @@ export default function ProductInfo({ e, ...props }) {
   let navigate = useNavigate();
 
   function handleSubmit() {
-    navigate(`/product-detail/${e._id}`, {
-      state: {
-        itemId: e._id,
-      },
-      replace: true,
-    });
+    if (e._id !== undefined) {
+      navigate(`/product-detail/${e._id}`, {
+        state: {
+          itemId: e._id,
+        },
+        replace: true,
+      });
+    } else {
+      navigate("/home");
+    }
   }
 
   return (

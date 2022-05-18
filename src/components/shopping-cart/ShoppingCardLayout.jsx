@@ -1,16 +1,47 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import StepperComponent from "./StepperComponent";
+import { useState } from "react";
+import StepOneOrder from "./StepOneOrder";
+import StepTwoAddress from "./StepTwoAddress";
+import StepThreePayment from "./StepThreePayment";
+import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 
-function ShoppingCardLayout({ id }) {
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.addToCartReducer.products);
+export default function ShoppingCardLayout() {
+  const [activeStep, setActiveStep] = useState(0);
+  const content = useSelector((state) => state);
 
-  const quantity = products.reduce(
-    (subtotal, { price, quantity }) => subtotal + price * quantity,
-    0
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        my: content.order.products.length !== 0 ? 0 : 20,
+      }}
+    >
+      {content.order.products.length !== 0 ? (
+        <Box sx={{ width: "100%", mt: 1 }}>
+          {activeStep === 0 ? (
+            <StepOneOrder />
+          ) : activeStep === 1 ? (
+            <StepTwoAddress />
+          ) : activeStep === 2 ? (
+            <StepThreePayment />
+          ) : null}
+          <StepperComponent
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+          />
+        </Box>
+      ) : (
+        <Typography
+          sx={{ border: "1px solid gray", borderRadius: "15px", p: 3 }}
+        >
+          your shopping cart is empty!
+        </Typography>
+      )}
+    </Box>
   );
-  console.log(quantity);
-  return <div>ShoppingCardLayout</div>;
 }
-
-export default ShoppingCardLayout;

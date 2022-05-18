@@ -1,6 +1,9 @@
 import { Button, CardMedia, Container, Grid, Typography } from "@mui/material";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
+import { useDispatch } from "react-redux";
+import { ADD_TO_CART } from "../../store/actionTypes";
 import Loading from "../../widget/Loading";
 
 const container = {
@@ -11,6 +14,7 @@ const container = {
 
 function ProductDetailInfo({ e, ...props }) {
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,6 +24,55 @@ function ProductDetailInfo({ e, ...props }) {
       setLoading(true);
     };
   }, []);
+
+  const handleAddToCart = () => {
+    dispatch({
+      type: ADD_TO_CART,
+      payload: e,
+    });
+
+    /* axios({
+      method: "post",
+      url: "api/orders",
+      data: {
+        orderItems: [
+          {
+            product: e._id,
+            name: e.name,
+            image: e.image,
+            price: e.price,
+            countInStock: e.countInStock,
+            qty: 1,
+          },
+        ],
+        shippingAddress: {
+          address: "",
+          city: "",
+          postalCode: "",
+          phone: "",
+        },
+        paymentMethod: "",
+        itemsPrice: e.price,
+        shippingPrice: "0.00",
+        totalPrice: e.price,
+      },
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    axios
+      .post("api/orders")
+      .then((res) => {
+        console.log(res.data);
+        dispatch({
+          type: ADD_TO_CART,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      }); */
+  };
 
   return (
     <Container>
@@ -79,6 +132,7 @@ function ProductDetailInfo({ e, ...props }) {
               />
               <Button
                 sx={{ mt: 1 }}
+                onClick={handleAddToCart}
                 color="primary"
                 variant="contained"
                 disabled={e.countInStock > 0 ? null : true}

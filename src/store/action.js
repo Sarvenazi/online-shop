@@ -20,9 +20,9 @@ export const fetchProductBegin = () => ({
   type: actions.FETCH_PRODUCT_BEGIN
 });
 
-export const fetchProductSuccess = products => ({
+export const fetchProductSuccess = product => ({
   type: actions.FETCH_PRODUCT_SUCCESS,
-  payload: products
+  payload: product
 });
 
 export const fetchProductFailure = error => ({
@@ -70,17 +70,4 @@ export const clearCart = (item) => {
   };
 };
 
-// export const addOrder = (bookmark) => (dispatch, getState) => {
-//   const { bookmarks } = getState().bookmarks;
 
-//   dispatch({ type: ADD_BOOKMARKS_REQUEST });
-
-//   try {
-//     dispatch({
-//       type: ADD_BOOKMARKS_SUCCESS,
-//       payload: [...bookmarks, bookmark],
-//     });
-//   } catch (error) {
-//     dispatch({ type: ADD_BOOKMARKS_FAILED, payload: error });
-//   }
-// };

@@ -20,26 +20,29 @@ function ProductDetailLayout() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (state === undefined) {
+    console.log(state, "state");
+    // eslint-disable-next-line eqeqeq
+    if (state == undefined || null) {
       navigate("/home");
-    }
-    dispatch({
-      type: FETCH_PRODUCT_BEGIN,
-    });
-    axios
-      .get(`api/products/${state?.itemId}`)
-      .then((res) => {
-        dispatch({
-          type: FETCH_PRODUCT_SUCCESS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: FETCH_PRODUCT_FAILURE,
-          payload: error,
-        });
+    } else {
+      dispatch({
+        type: FETCH_PRODUCT_BEGIN,
       });
+      axios
+        .get(`api/products/${state.itemId}`)
+        .then((res) => {
+          dispatch({
+            type: FETCH_PRODUCT_SUCCESS,
+            payload: res.data,
+          });
+        })
+        .catch((error) => {
+          dispatch({
+            type: FETCH_PRODUCT_FAILURE,
+            payload: error,
+          });
+        });
+    }
   }, [dispatch, navigate, state, state?.itemId]);
 
   return (
@@ -57,8 +60,8 @@ function ProductDetailLayout() {
         showAlert("There is a problem with your network", 3000)
       ) : (
         <ProductDetailInfo
-          key={content.product.items._id}
-          e={content.product.items}
+          key={content.product.item._id}
+          e={content.product.item}
         />
       )}
     </Grid>

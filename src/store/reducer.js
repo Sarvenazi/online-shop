@@ -13,12 +13,12 @@ export const productsReducer = (state = { loading: Boolean, items: [] }, action)
   }
 };
 
-export const productReducer = (state = { loading: Boolean, items: [] }, action) => {
+export const productReducer = (state = { loading: Boolean, item: [] }, action) => {
   switch (action.type) {
     case actions.FETCH_PRODUCT_BEGIN:
       return { ...state };
     case actions.FETCH_PRODUCT_SUCCESS:
-      return { ...state, items: action.payload, loading: false };
+      return { ...state, item: action.payload, loading: false };
     case actions.FETCH_PRODUCT_FAILURE:
       return { ...state, loading: true };
     default:
@@ -35,14 +35,14 @@ const addToCartiState = {
 export const addToCartReducer = (state = addToCartiState, action) => {
   switch (action.type) {
     case actions.ADD_TO_CART:
-      const isInCart = state.products.some(item => item.id === action.payload.id);
+      const isInCart = state.products.some(item => item._id === action.payload._id);
 
       if (isInCart) {
         // update existing item in cart
         return {
           ...state,
           products: state.products.map(
-            item => item.id === action.payload.id
+            item => item._id === action.payload._id
               ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -119,6 +119,7 @@ export const addToCartReducer = (state = addToCartiState, action) => {
       return state;
   }
 };
+
 export const userinfoReducer = (state = { user: [] }, action) => {
   switch (action.type) {
     case actions.GET_USER_INFO:
