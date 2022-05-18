@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { Container, CssBaseline } from "@mui/material";
 import ProductDetailLayout from "./components/product-detail/ProductDetailLayout";
 import { Box } from "@mui/system";
+import ShoppingCardLayout from "./components/shopping-cart/ShoppingCardLayout";
 
 function App() {
   const { pathname } = useLocation();
@@ -30,9 +31,10 @@ function App() {
           <Route path="*" element={<Navigate to="/home" />} />
           <Route path="/home" element={<HomeLayout />} />
           <Route path="/login" element={<HomeLayout />} />
+          <Route path="/sign-up" element={<HomeLayout />} />
           <Route path="/product-detail/:id" element={<ProductDetailLayout />} />
           <Route path="/profile" element={<HomeLayout />} />
-          <Route path="/shopping-cart" element={<HomeLayout />} />
+          <Route path="/shopping-cart" element={<ShoppingCardLayout />} />
           <Route path="/user-info" element={<HomeLayout />} />
           <Route path="/payment" element={<HomeLayout />} />
         </Routes>
