@@ -5,7 +5,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 
-const steps = ["Review your order", "address", "Payment method"];
+const steps = ["Review your order", "Add address", "Payment method"];
 
 export default function StepperComponent({
   activeStep,

@@ -28,11 +28,11 @@ export const productReducer = (state = { loading: Boolean, item: [] }, action) =
 
 
 //CART REDUCER
-const addToCartiState = {
+const CartiState = {
   products: [],
 };
 
-export const addToCartReducer = (state = addToCartiState, action) => {
+export const CartReducer = (state = CartiState, action) => {
   switch (action.type) {
     case actions.ADD_TO_CART:
       const isInCart = state.products.some(item => item._id === action.payload._id);
@@ -68,23 +68,23 @@ export const addToCartReducer = (state = addToCartiState, action) => {
       return {
         ...state,
         products: state.products.map(
-          item => item.id === action.payload.id
+          item => item._id === action.payload._id
             ? {
               ...item,
-              quantity: item.quantity + action.payload.quantity
+              quantity: item.quantity + 1
             }
             : item
         ),
       };
 
     case actions.MINUS_QUANTITY:
-      const item = state.products.find(item => item.id === action.payload.id);
+      const item = state.products.find(item => item._id === action.payload._id);
 
       if (item?.quantity === 1) {
         // new quantity is 0, remove item from cart
         return {
           ...state,
-          products: state.products.filter(item => item.id !== action.payload.id),
+          products: state.products.filter(item => item._id !== action.payload._id),
         };
       }
 
@@ -92,10 +92,10 @@ export const addToCartReducer = (state = addToCartiState, action) => {
       return {
         ...state,
         products: state.products.map(
-          item => item.id === action.payload.id
+          item => item._id === action.payload._id
             ? {
               ...item,
-              quantity: item.quantity - action.payload.quantity
+              quantity: item.quantity - 1
             }
             : item
         ),
@@ -105,7 +105,7 @@ export const addToCartReducer = (state = addToCartiState, action) => {
       return {
         ...state,
         products: state.products.filter(
-          (item) => item.id !== action.payload.id
+          (item) => item._id !== action.payload._id
         ),
       };
 

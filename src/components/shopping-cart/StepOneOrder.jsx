@@ -1,6 +1,7 @@
 import { Button, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { CLEAR_CART } from "../../store/actionTypes";
 import Product from "./Product";
 
 const font = {
@@ -9,11 +10,13 @@ const font = {
 
 function StepOneOrder() {
   const content = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const totalSum = content.order.products.reduce(function (
     accumulator,
     currentValue
   ) {
-    return accumulator + currentValue.price;
+    return accumulator + currentValue.price * currentValue.quantity;
   },
   0);
   const totalProducts = content.order.products.reduce(function (
@@ -24,9 +27,14 @@ function StepOneOrder() {
   },
   0);
 
-  const handleCleanAll = () => {};
+  const handleCleanAll = () => {
+    dispatch({
+      type: CLEAR_CART,
+    });
+  };
 
   const alternateColor = ["rgba(211,211,211,0.6)", "#FFFFFF"];
+  // const columns = ["product image", "product name", "price", "quantity" , ''];
 
   return (
     <Grid
@@ -88,9 +96,7 @@ function StepOneOrder() {
           alignItems: "center",
         }}
       >
-        <Typography sx={font}>
-          total sum : {totalSum * totalProducts} $
-        </Typography>
+        <Typography sx={font}>total sum : {totalSum.toFixed(2)} $</Typography>
         <Typography sx={font}>total products : {totalProducts}</Typography>
       </Grid>
     </Grid>
